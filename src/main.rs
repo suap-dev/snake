@@ -1,7 +1,7 @@
 use bevy::{prelude::*, transform};
 
 fn main() {
-    App::new()    
+    App::new()
         .add_startup_system(setup_camera)
         .add_startup_system(spawn_snake)
         .add_system(snake_movement)
@@ -22,7 +22,7 @@ const SNAKE_HEAD_COLOR: Color = Color::rgb(0.7, 0.7, 0.7);
 fn spawn_snake(mut commands: Commands) {
     commands
         // ..quite default SpriteBundle, and..
-        .spawn_bundle(SpriteBundle {            
+        .spawn_bundle(SpriteBundle {
             // default Sprite with only changed color
             sprite: Sprite {
                 color: SNAKE_HEAD_COLOR,
@@ -40,8 +40,22 @@ fn spawn_snake(mut commands: Commands) {
 }
 
 // query or Transforms (as &mut) that also have SnakeHead Component
-fn snake_movement(mut head_positions: Query<&mut Transform, With<SnakeHead>>) {
+fn snake_movement(
+    keyboard_input: Res<Input<KeyCode>>,
+    mut head_positions: Query<&mut Transform, With<SnakeHead>>,
+) {
     for mut transform in head_positions.iter_mut() {
-        transform.translation.y += 2.0;
+        if keyboard_input.pressed(KeyCode::Left) {
+            transform.translation.x -= 2.0;
+        }
+        if keyboard_input.pressed(KeyCode::Right) {
+            transform.translation.x += 2.0;
+        }
+        if keyboard_input.pressed(KeyCode::Down) {
+            transform.translation.y -= 2.0;
+        }
+        if keyboard_input.pressed(KeyCode::Up) {
+            transform.translation.y += 2.0;
+        }
     }
 }
