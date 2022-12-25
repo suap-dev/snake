@@ -39,9 +39,9 @@ fn spawn_snake(mut commands: Commands) {
         .insert(SnakeHead);
 }
 
-// query pairs of &SnakeHeads and &mut Transforms
-fn snake_movement(mut variable: Query<(&SnakeHead, &mut Transform)>) {
-    for (_head, mut transform) in variable.iter_mut() {
+// query or Transforms (as &mut) that also have SnakeHead Component
+fn snake_movement(mut head_positions: Query<&mut Transform, With<SnakeHead>>) {
+    for mut transform in head_positions.iter_mut() {
         transform.translation.y += 2.0;
     }
 }
