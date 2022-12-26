@@ -1,5 +1,9 @@
 use bevy::{prelude::*, transform};
 
+const ARENA_WIDTH: u32 = 10;
+const ARENA_HEIGHT: u32 = 10;
+
+
 fn main() {
     App::new()
         .add_startup_system(setup_camera)
@@ -15,8 +19,28 @@ fn setup_camera(mut commands: Commands) {
 
 #[derive(Component)]
 struct SnakeHead;
-
 const SNAKE_HEAD_COLOR: Color = Color::rgb(0.7, 0.7, 0.7);
+
+#[derive(Component)]
+struct Position {
+    x: i32,
+    y: i32,
+}
+
+#[derive(Component)]
+struct Size {
+    width: f32,
+    height: f32,
+}
+impl Size {
+    pub fn square(x: f32) -> Self {
+        Self {
+            width: x,
+            height: x,
+        }
+    }
+}
+
 
 // spawning new entity build from..
 fn spawn_snake(mut commands: Commands) {
@@ -36,7 +60,9 @@ fn spawn_snake(mut commands: Commands) {
             ..default()
         })
         // .. SnakeHead Component
-        .insert(SnakeHead);
+        .insert(SnakeHead)
+        .insert(Position { x: 3, y: 3 })
+        .insert(Size::square(0.8));
 }
 
 // query or Transforms (as &mut) that also have SnakeHead Component
