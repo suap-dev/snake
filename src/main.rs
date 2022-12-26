@@ -42,7 +42,7 @@ impl Size {
 }
 
 
-// spawning new entity build from..
+// spawning new entity. it's build from..
 fn spawn_snake(mut commands: Commands) {
     commands
         // ..quite default SpriteBundle, and..
@@ -96,3 +96,4 @@ fn size_scaling(windows: Res<Windows>, mut q: Query<(&Size, &mut Transform)>) {
         );
     }
 }
+
