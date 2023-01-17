@@ -1,4 +1,4 @@
-use bevy::prelude::*;
+use bevy::{core::FixedTimestep, prelude::*};
 
 pub mod game;
 use game::systems::*;
@@ -17,10 +17,15 @@ fn main() {
     game.add_plugins(DefaultPlugins);
 
     game.add_startup_system(setup_camera)
-        .add_startup_system(spawn_snake)
-        .add_startup_system(food_spawner);
+        .add_startup_system(spawn_snake);
 
     game.add_system(snake_movement);
+
+    game.add_system_set(
+        SystemSet::new()
+            .with_run_criteria(FixedTimestep::step(1.0))
+            .with_system(food_spawner),
+    );
 
     game.add_system_set_to_stage(
         CoreStage::PostUpdate,

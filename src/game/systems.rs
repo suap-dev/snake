@@ -95,7 +95,7 @@ pub fn position_translation(windows: Res<Windows>, mut q: Query<(&Position, &mut
 
 pub fn food_spawner(mut commands: Commands) {
     use rand::prelude::random;
-    
+
     commands
         .spawn_bundle(SpriteBundle {
             sprite: Sprite {
@@ -108,6 +108,6 @@ pub fn food_spawner(mut commands: Commands) {
         .insert(Position {
             x: (random::<f32>() * ARENA_WIDTH as f32) as i32,
             y: (random::<f32>() * ARENA_HEIGHT as f32) as i32,
-            })
+        })
         .insert(components::Size::square(0.8));
 }
