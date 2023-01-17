@@ -33,20 +33,20 @@ pub fn spawn_snake(mut commands: Commands) {
 // query or Transforms (as &mut) that also have SnakeHead Component
 pub fn snake_movement(
     keyboard_input: Res<Input<KeyCode>>,
-    mut head_positions: Query<&mut Transform, With<SnakeHead>>,
+    mut head_positions: Query<&mut Position, With<SnakeHead>>,
 ) {
-    for mut transform in head_positions.iter_mut() {
+    for mut position in head_positions.iter_mut() {
         if keyboard_input.pressed(KeyCode::Left) {
-            transform.translation.x -= 2.0;
+            position.x -= 2;
         }
         if keyboard_input.pressed(KeyCode::Right) {
-            transform.translation.x += 2.0;
+            position.x += 2;
         }
         if keyboard_input.pressed(KeyCode::Down) {
-            transform.translation.y -= 2.0;
+            position.y -= 2;
         }
         if keyboard_input.pressed(KeyCode::Up) {
-            transform.translation.y += 2.0;
+            position.y += 2;
         }
     }
 }
