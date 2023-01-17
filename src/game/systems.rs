@@ -3,7 +3,6 @@ use bevy::prelude::*;
 use super::components::*;
 use super::*;
 
-// query or Transforms (as &mut) that also have SnakeHead Component
 pub fn setup_camera(mut commands: Commands) {
     commands.spawn_bundle(OrthographicCameraBundle::new_2d());
 }
@@ -31,6 +30,7 @@ pub fn spawn_snake(mut commands: Commands) {
         .insert(components::Size::square(0.8));
 }
 
+// query or Transforms (as &mut) that also have SnakeHead Component
 pub fn snake_movement(
     keyboard_input: Res<Input<KeyCode>>,
     mut head_positions: Query<&mut Transform, With<SnakeHead>>,
@@ -54,9 +54,14 @@ pub fn snake_movement(
 pub fn size_scaling(windows: Res<Windows>, mut q: Query<(&components::Size, &mut Transform)>) {
     let window = windows.get_primary().unwrap();
     for (sprite_size, mut transform) in q.iter_mut() {
+        // The sizing logic goes like so:
+        // if something has a width of 1 in a grid of 40,
+        // and the window is 400px across,
+        // then it should have a width of 10.
+        // -- https://mbuffett.com/posts/bevy-snake-tutorial/
         transform.scale = Vec3::new(
-            (sprite_size.width / ARENA_WIDTH as f32) * (window.width() as f32),
-            (sprite_size.height / ARENA_HEIGHT as f32) * (window.height() as f32),
+            sprite_size.width * (window.width() / ARENA_WIDTH as f32),
+            sprite_size.height * (window.height() / ARENA_HEIGHT as f32),
             1.0,
         );
     }
