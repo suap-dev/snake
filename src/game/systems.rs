@@ -51,6 +51,7 @@ pub fn snake_movement(
     }
 }
 
+// TODO: make this readable
 pub fn size_scaling(windows: Res<Windows>, mut q: Query<(&components::Size, &mut Transform)>) {
     // The sizing logic goes like so:
     // if something has a width of 1 in a grid of 40,
@@ -67,6 +68,7 @@ pub fn size_scaling(windows: Res<Windows>, mut q: Query<(&components::Size, &mut
     }
 }
 
+// TODO: make this readable
 pub fn position_translation(windows: Res<Windows>, mut q: Query<(&Position, &mut Transform)>) {
     // The position translation:
     // if an item’s x coordinate is at 5 in our system,
