@@ -17,7 +17,8 @@ fn main() {
     game.add_plugins(DefaultPlugins);
 
     game.add_startup_system(setup_camera)
-        .add_startup_system(spawn_snake);
+        .add_startup_system(spawn_snake)
+        .add_startup_system(food_spawner);
 
     game.add_system(snake_movement);
 

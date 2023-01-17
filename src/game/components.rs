@@ -21,3 +21,6 @@ impl Size {
         }
     }
 }
+
+#[derive(Component)]
+pub struct Food;

@@ -92,3 +92,17 @@ pub fn position_translation(windows: Res<Windows>, mut q: Query<(&Position, &mut
         );
     }
 }
+
+pub fn food_spawner(mut commands: Commands) {
+    commands
+        .spawn_bundle(SpriteBundle {
+            sprite: Sprite {
+                color: FOOD_COLOR,
+                ..default()
+            },
+            ..default()
+        })
+        .insert(Food)
+        .insert(Position { x: 1, y: 1 })
+        .insert(components::Size::square(0.8));
+}
